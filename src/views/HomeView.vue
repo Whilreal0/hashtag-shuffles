@@ -287,6 +287,11 @@ const shuffleHashtags = () => {
 
 // Copy the shuffled hashtags to the clipboard
 const copyToClipboard = () => {
+  if (!shuffledHashtags.value.trim()) {
+    alert("No hashtags to copy!");
+    return;
+  }
+
   navigator.clipboard
     .writeText(shuffledHashtags.value)
     .then(() => {
@@ -296,6 +301,8 @@ const copyToClipboard = () => {
       console.error("Failed to copy: ", err);
     });
 };
+
+
 
 // Computed properties for total hashtags and characters
 const totalHashtags = computed(() => {
@@ -312,7 +319,7 @@ loadTextAreaContent();
 </script>
 
 <template>
-  <main class="bg-green-500 px-2 md:px-[17rem]">
+  <main class=" px-2 md:px-[17rem]">
     <section class="md:w-[50%] flex flex-col gap-4">
       <h1 class="text-4xl">Hashtags Shuffler</h1>
       <span>
@@ -321,31 +328,31 @@ loadTextAreaContent();
         future visits.
       </span>
     </section>
-    <section class="bg-yellow-300">
+    <section class="">
       <h1>choose a topic to get started:</h1>
-      <div class="flex gap-2">
+      <div class="flex gap-1 mb-2">
         <button
           @click="fillTextArea('artist')"
-          class="bg-blue-300 text-white px-3.5 py-2 rounded-md outline-none"
+          class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
         >
           Artist
         </button>
         <button
           @click="fillTextArea('travel')"
-          class="bg-blue-300 text-white px-3.5 py-2 rounded-md outline-none"
+          class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
         >
           Travel
         </button>
         <button
           @click="fillTextArea('food')"
-          class="bg-blue-300 text-white px-3.5 py-2 rounded-md outline-none"
+          class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
         >
           Food
         </button>
       </div>
       <div>
         <textarea
-          class="w-full"
+          class="w-full outline outline-blue-600 p-2"
           v-model="textAreaContent"
           @input="updateHashtags"
           @blur="handleCustomHashtag"
@@ -361,15 +368,15 @@ loadTextAreaContent();
         <span>Total Characters: {{ totalCharacters }} / 4000 </span>
       </div>
     </section>
-    <section class="flex gap-3">
-      <div>
-        <h1>No. of hashtags</h1>
+    <section class="">
+      <div class="flex gap-3 ">
+        <h1 class="">No. of hashtags</h1>
         <span>30 maximum </span>
-        <input v-model="hashtagCount" @change="saveToLocalStorage" type="number" min="1" max="30" name="shuffle-hashtag" />
+        <input v-model="hashtagCount" @change="saveToLocalStorage" class="border border-1 p-2 border-blue-600" type="number" min="1" max="30" name="shuffle-hashtag" />
       </div>
       <button
         @click="shuffleHashtags"
-        class="bg-blue-300 text-white px-3.5 py-2 rounded-md outline-none"
+        class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
       >
         Shuffle
       </button>
@@ -379,7 +386,7 @@ loadTextAreaContent();
         <textarea
           v-model="shuffledHashtags"
           @click="copyToClipboard"
-          class="w-full"
+          class="w-full outline outline-blue-600 p-2"
           readonly
           name="shuffled-hashtags"
           id="shuffled-hashtags"
