@@ -5,7 +5,7 @@ const message = ref('Hello, Vue 3!');
 </script>
 
 <template>
-  <div class="bg-blue-300 md:px-[17rem]">
-    Navbar Icon Here
+  <div class="bg-blue-300 px-2 md:px-[17rem]">
+    Hash it Shuffle
   </div>
 </template>

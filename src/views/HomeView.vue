@@ -194,14 +194,15 @@ const hashtagCount = ref(30); // Default to maximum
 // Load custom hashtags from local storage on component mount
 onMounted(() => {
   const storedHashtags = localStorage.getItem("customHashtags");
-  const storedCount = localStorage.getItem('hashtagCount');
+  const storedCount = localStorage.getItem("hashtagCount");
   if (storedHashtags) {
     customHashtags.value = JSON.parse(storedHashtags);
-    textAreaContent.value = customHashtags.value.map(tag => `#${tag}`).join(' '); // Load hashtags into textarea
+    textAreaContent.value = customHashtags.value
+      .map((tag) => `#${tag}`)
+      .join(" "); // Load hashtags into textarea
   }
   if (storedCount) {
     hashtagCount.value = parseInt(storedCount, 10); // Load hashtag count
-    
   }
 });
 
@@ -263,7 +264,7 @@ const updateCustomHashtags = () => {
 // Save current textarea content to local storage
 const saveToLocalStorage = () => {
   localStorage.setItem("textareaContent", textAreaContent.value);
-  localStorage.setItem('hashtagCount', hashtagCount.value);
+  localStorage.setItem("hashtagCount", hashtagCount.value);
 };
 
 // Load textarea content from local storage
@@ -302,8 +303,6 @@ const copyToClipboard = () => {
     });
 };
 
-
-
 // Computed properties for total hashtags and characters
 const totalHashtags = computed(() => {
   return textAreaContent.value.split(" ").filter((word) => word.startsWith("#"))
@@ -319,7 +318,7 @@ loadTextAreaContent();
 </script>
 
 <template>
-  <main class=" px-2 md:px-[17rem]">
+  <main class="px-2 md:px-[17rem]">
     <section class="md:w-[50%] flex flex-col gap-4">
       <h1 class="text-4xl">Hashtags Shuffler</h1>
       <span>
@@ -361,27 +360,46 @@ loadTextAreaContent();
           rows="10"
           maxlength="4000"
           spellcheck="false"
-          placeholder="put ur own Hashtags here" 
+          placeholder="Put your Own Hashtags here"
         >
         </textarea>
-        <span>Total Hashtags: {{ totalHashtags }} </span>
-        <span>Total Characters: {{ totalCharacters }} / 4000 </span>
+        <div class="flex flex-row justify-between items-center">
+          <span class="text-sm"
+            >Total Hashtags: <b>{{ totalHashtags }}</b></span
+          >
+          <span class="text-sm"
+            >Total Characters: <b>{{ totalCharacters }} / 4000</b>
+          </span>
+        </div>
       </div>
     </section>
+    <hr class="h-px my-1.5 bg-blue-600 border-0" />
     <section class="">
-      <div class="flex gap-3 ">
-        <h1 class="">No. of hashtags</h1>
-        <span>30 maximum </span>
-        <input v-model="hashtagCount" @change="saveToLocalStorage" class="border border-1 p-2 border-blue-600" type="number" min="1" max="30" name="shuffle-hashtag" />
+      <div class="flex flex-row gap-1 items-center justify-between py-2">
+        <div class="flex flex-col justify-center rounded-md relative ">
+          <input
+            v-model="hashtagCount"
+            @change="saveToLocalStorage"
+            class="border  text-center border-1 py-0.5 px-1 border-blue-600 rounded-md"
+            type="number"
+            min="1"
+            max="30"
+            name="shuffle-hashtag"
+          />
+          <span class="text-[10px]  text-center  w-full">Max 30</span>
+        </div>
+
+        <!-- <div class="flex "> -->
+          <button
+            @click="shuffleHashtags"
+            class="bg-blue-300 text-white px-8 h-[44.505px]  text-sm rounded-md outline-none"
+          >
+            Shuffle
+          </button>
+        <!-- </div> -->
       </div>
-      <button
-        @click="shuffleHashtags"
-        class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
-      >
-        Shuffle
-      </button>
     </section>
-    <section class="mt-2">
+    <section class="my-2">
       <div class="flex flex-col">
         <textarea
           v-model="shuffledHashtags"
