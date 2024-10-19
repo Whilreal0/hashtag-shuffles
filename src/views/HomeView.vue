@@ -439,7 +439,7 @@ loadTextAreaContent();
 
 <template>
   <main class="px-2 md:px-[17rem]">
-    <section class="md:w-[50%] flex flex-col gap-4">
+    <section class="md:w-[60%]  flex flex-col gap-4">
       <h1 class="text-4xl">Hashtags Shuffler</h1>
       <span class="mb-2">
         Save this page for easy access and revisit it whenever you'd like! This
