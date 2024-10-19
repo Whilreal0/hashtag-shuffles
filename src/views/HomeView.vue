@@ -186,6 +186,122 @@ const foodHashtags = [
   "onmytable",
 ];
 
+const cryptoHashtags = [
+  "crypto",
+  "cryptocurrency",
+  "bitcoin",
+  "blockchain",
+  "ethereum",
+  "btc",
+  "trading",
+  "cryptonews",
+  "cryptotrading",
+  "nft",
+  "forex",
+  "money",
+  "eth",
+  "investing",
+  "investment",
+  "cryptocurrencies",
+  "bitcoins",
+  "binance",
+  "bitcoinnews",
+  "bitcoinmining",
+  "invest",
+  "business",
+  "trader",
+  "entrepreneur",
+  "forextrader",
+  "nfts",
+  "finance",
+  "stocks",
+  "dogecoin",
+  "cryptoworld",
+  "bitcointrading",
+  "investor",
+  "xrp",
+  "nftart",
+  "cryptoinvestor",
+  "cryptoart",
+  "coinbase",
+  "litecoin",
+  "stockmarket",
+  "hodl",
+  "bitcoincash",
+  "altcoin",
+  "defi",
+  "art",
+  "ripple",
+  "nftcommunity",
+  "metaverse",
+  "web",
+  "forextrading",
+  "blockchaintechnology",
+  "motivation",
+  "nftcollector",
+  "digitalart",
+  "cryptomarket",
+  "cryptomemes",
+  "altcoins",
+  "mining",
+  "forexsignals",
+  "financialfreedom",
+  "cryptomining",
+];
+const reelsHashtags = [
+  "Reels",
+  "ExplorePage",
+  "ViralReels",
+  "InstaReels",
+  "ReelItFeelIt",
+  "Trending",
+  "ForYou",
+  "ReelLife",
+  "ShortVideos",
+  "ContentCreator",
+  "ReelChallenge",
+  "CreativeReels",
+  "ReelFashion",
+  "DanceReels",
+  "FoodReels",
+  "TravelReels",
+  "Motivation",
+  "Inspiration",
+  "FunnyReels",
+  "BeautyReels",
+  "DIYReels",
+  "FitnessReels",
+  "PetReels",
+  "ArtReels",
+  "LifestyleReels",
+  "MusicReels",
+  "ReelComedy",
+  "ReelTips",
+  "BehindTheScenes",
+  "DailyReels",
+  "LifeHacks",
+  "ReelMoments",
+  "SelfCare",
+  "FashionInspo",
+  "HomeDecor",
+  "TechReels",
+  "StudyTips",
+  "TravelInspo",
+  "Wellness",
+  "GamingReels",
+  "FamilyReels",
+  "SustainableLiving",
+  "SeasonalReels",
+  "PhotographyReels",
+  "AdventureReels",
+  "Mindfulness",
+  "ReelStories",
+  "QuickRecipes",
+  "ReelTutorial",
+  "VisualStorytelling"
+];
+
+
 const textAreaContent = ref("");
 const shuffledHashtags = ref("");
 const customHashtags = ref([]);
@@ -215,6 +331,10 @@ const fillTextArea = (type) => {
     hashtags = travelHashtags;
   } else if (type === "food") {
     hashtags = foodHashtags;
+  } else if (type === "crypto") {
+    hashtags = cryptoHashtags;
+  } else if (type === "reels") {
+    hashtags = reelsHashtags;
   }
   // Set new hashtags in the textarea
   textAreaContent.value = hashtags.map((tag) => `#${tag}`).join(" ") + " ";
@@ -321,14 +441,14 @@ loadTextAreaContent();
   <main class="px-2 md:px-[17rem]">
     <section class="md:w-[50%] flex flex-col gap-4">
       <h1 class="text-4xl">Hashtags Shuffler</h1>
-      <span>
+      <span class="mb-2">
         Save this page for easy access and revisit it whenever you'd like! This
         site utilizes your browser's local storage to remember your hashtags for
         future visits.
       </span>
     </section>
     <section class="">
-      <h1>choose a topic to get started:</h1>
+      <h1 class="mb-1">Choose a topic</h1>
       <div class="flex gap-1 mb-2">
         <button
           @click="fillTextArea('artist')"
@@ -347,6 +467,18 @@ loadTextAreaContent();
           class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
         >
           Food
+        </button>
+        <button
+          @click="fillTextArea('crypto')"
+          class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
+        >
+          Crypto
+        </button>
+        <button
+          @click="fillTextArea('reels')"
+          class="bg-blue-300 text-white px-3 py-0.5 text-sm rounded-md outline-none"
+        >
+          Reels
         </button>
       </div>
       <div>
@@ -376,26 +508,26 @@ loadTextAreaContent();
     <hr class="h-px my-1.5 bg-blue-600 border-0" />
     <section class="">
       <div class="flex flex-row gap-1 items-center justify-between py-2">
-        <div class="flex flex-col justify-center rounded-md relative ">
+        <div class="flex flex-col justify-center rounded-md relative">
           <input
             v-model="hashtagCount"
             @change="saveToLocalStorage"
-            class="border  text-center border-1 py-0.5 px-1 border-blue-600 rounded-md"
+            class="border text-center border-1 py-0.5 px-1 border-blue-600 outline-blue-600 rounded-md"
             type="number"
             min="1"
             max="30"
             name="shuffle-hashtag"
           />
-          <span class="text-[10px]  text-center  w-full">Max 30</span>
+          <span class="text-[10px] text-center w-full">Max 30</span>
         </div>
 
         <!-- <div class="flex "> -->
-          <button
-            @click="shuffleHashtags"
-            class="bg-blue-300 text-white px-8 h-[44.505px]  text-sm rounded-md outline-none"
-          >
-            Shuffle
-          </button>
+        <button
+          @click="shuffleHashtags"
+          class="bg-blue-300 text-white px-8 h-[44.505px] text-sm rounded-md outline-none"
+        >
+          Shuffle
+        </button>
         <!-- </div> -->
       </div>
     </section>
